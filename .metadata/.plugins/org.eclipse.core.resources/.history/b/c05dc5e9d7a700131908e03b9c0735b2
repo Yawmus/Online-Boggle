@@ -1,0 +1,5 @@
+package com.peter.views;
+
+public class Play implements Screen{
+
+}

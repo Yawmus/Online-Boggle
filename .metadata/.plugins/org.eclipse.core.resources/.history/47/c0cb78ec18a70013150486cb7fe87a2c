@@ -1,0 +1,73 @@
+package com.peter.player;
+
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.peter.boggle.Boggle;
+
+
+public class Player implements InputProcessor{
+	
+	public String inputBuffer;
+
+	public Player(){
+		inputBuffer = new String();
+	}
+	
+	public void draw(SpriteBatch batch){
+		Boggle.font30.draw(batch, inputBuffer, 190, 55);
+	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		if(character == 8){
+			System.out.println("hi");
+			inputBuffer.substring(0, inputBuffer.length()-3);
+		}
+		inputBuffer += character;
+		System.out.println(inputBuffer);
+		return true;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

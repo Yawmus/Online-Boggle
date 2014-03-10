@@ -1,0 +1,46 @@
+package com.peter.boggle;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+public class Board {
+	public static final int WIDTH = 3;
+	public static final int HEIGHT = 3;
+	public static float offSetX = Gdx.graphics.getWidth()/2 - (WIDTH * Die.WIDTH)/2;
+	public static float offSetY = Gdx.graphics.getHeight()/2 - (HEIGHT * Die.HEIGHT)/2;
+	private Die[][] dice;
+	
+	public Board(){
+		dice = new Die[WIDTH][HEIGHT];
+		for(int i=0; i<WIDTH; i++){
+			for(int j=0; j<HEIGHT; j++){
+				dice[i][j] = new Die();
+			}
+		}
+	}
+	
+	public void draw(SpriteBatch batch){
+		for(int i=0; i<WIDTH; i++){
+			for(int j=0; j<HEIGHT; j++){
+				batch.draw(dice[i][j], offSetX + Die.WIDTH*i, offSetY + Die.HEIGHT*j);
+				Boggle.font.draw(batch, dice[i][j].getLetter().toString(), 
+						offSetX + Die.WIDTH*i + Boggle.font.getBounds(dice[i][j].getLetter().toString()).width/2, offSetY + Die.HEIGHT*j + 34);
+			}
+		}
+	}
+}
+
+class Die extends Texture{
+	public static final int WIDTH = 64, HEIGHT = 64;
+	private Character letter;
+	
+	public Die(){
+		super(Gdx.files.internal("data/dice2.png"));
+		letter = (char) (97 + Boggle.rand(26, 0));
+	}
+	
+	public Character getLetter(){
+		return letter;
+	}
+}

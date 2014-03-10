@@ -1,0 +1,58 @@
+package com.peter.views;
+
+import com.badlogic.gdx.Screen;
+import com.peter.boggle.Board;
+
+public class Play implements Screen{
+
+	private Board board;
+    private float timer;
+	
+	@Override
+	public void render(float delta) {
+		Boggle.batch.begin();
+		board.draw();
+		Boggle.player.draw();
+		Boggle.font30.draw(batch, (int)timer + "s", 480 - font30.getBounds(String.valueOf((int)timer) + "s").width/2, 55);
+		Boggle.batch.end();
+		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void show() {
+		timer = 120;
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+}

@@ -1,0 +1,7 @@
+package com.peter.views;
+
+import com.badlogic.gdx.Screen;
+
+public class Play implements Screen{
+
+}

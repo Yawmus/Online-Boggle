@@ -1,0 +1,82 @@
+package com.peter.boggle;
+
+import java.util.Random;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.peter.player.Player;
+import com.peter.views.Play;
+
+public class Boggle extends Game {
+	public static OrthographicCamera camera;
+	public static SpriteBatch batch;
+	public static ShapeRenderer shape;
+	public static BitmapFont font25, font30, font45;
+	public static FreeTypeFontGenerator fontGen;
+    private static Random generator;
+    public static InputMultiplexer multiplexer;
+    public static Player player;
+    
+	@Override
+	public void create() {
+		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		camera.setToOrtho(false);
+		//camera.position.x = 100;
+		//camera.position.y = 100;
+		camera.update();
+		batch = new SpriteBatch();
+		shape = new ShapeRenderer();
+		generator = new Random();
+		fontGen = new FreeTypeFontGenerator(Gdx.files.internal("data/blue highway rg.ttf"));
+		font25 = fontGen.generateFont(20);
+		font25.setColor(Color.BLACK);
+		font30 = fontGen.generateFont(30);
+		font30.setColor(Color.BLACK);
+		font45 = fontGen.generateFont(45);
+		font45.setColor(new Color(0, .1f, .6f, 1f));
+		multiplexer = new InputMultiplexer();
+		Gdx.input.setInputProcessor(multiplexer);
+		player = new Player();
+		multiplexer.addProcessor(player);
+		
+		setScreen(new Play());
+	}
+
+	@Override
+	public void dispose() {
+		batch.dispose();
+	}
+
+	@Override
+	public void render() {
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+		
+		Boggle.batch.setProjectionMatrix(Boggle.camera.combined);
+		super.render();
+	}
+
+	@Override
+	public void resize(int width, int height) {
+	}
+
+	@Override
+	public void pause() {
+	}
+
+	@Override
+	public void resume() {
+	}
+	
+	public static int rand(int range, int origin) {
+    	return generator.nextInt(range) + origin;
+    }
+}

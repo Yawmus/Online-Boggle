@@ -1,0 +1,8 @@
+package com.peter.player;
+
+import com.badlogic.gdx.InputProcessor;
+
+
+public class Player implements InputProcessor{
+
+}

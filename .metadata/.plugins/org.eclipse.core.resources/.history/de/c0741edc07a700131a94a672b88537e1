@@ -1,0 +1,7 @@
+package com.peter.player;
+
+import com.badlogic.gdx.Application;
+
+public class Player implements ApplicationListener{
+
+}

@@ -1,0 +1,63 @@
+package com.peter.views;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.peter.boggle.Board;
+import com.peter.boggle.Boggle;
+
+public class Play extends Listener implements Screen{
+
+	private Board board;
+    private float timer;
+	
+    Boggle game;
+    
+    public Play(Boggle game){
+    	this.game = game;
+    }
+    
+	@Override
+	public void render(float delta) {
+		game.render();
+		
+		Boggle.batch.begin();
+		board.draw();
+		Boggle.player.draw();
+		Boggle.font30.draw(Boggle.batch, (int)timer + "s", 480 - Boggle.font30.getBounds(String.valueOf((int)timer) + "s").width/2, 55);
+		Boggle.batch.end();
+		
+		timer -= Gdx.graphics.getDeltaTime();		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		
+	}
+
+	@Override
+	public void show() {
+		board = new Board();
+		
+		timer = 120;
+	}
+
+	@Override
+	public void hide() {
+		
+	}
+
+	@Override
+	public void pause() {
+		
+	}
+
+	@Override
+	public void resume() {
+		
+	}
+
+	@Override
+	public void dispose() {
+		
+	}
+}

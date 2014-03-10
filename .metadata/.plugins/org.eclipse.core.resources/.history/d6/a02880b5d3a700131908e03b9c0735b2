@@ -1,0 +1,78 @@
+package com.peter.boggle;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+
+public class Board {
+	public static final int WIDTH = 3;
+	public static final int HEIGHT = 3;
+	public static final int SPACE = 5;
+	public static float offSetX = Gdx.graphics.getWidth()/2 - (WIDTH * Die.WIDTH)/2 - 100;
+	public static float offSetY = Gdx.graphics.getHeight()/2 - (HEIGHT * Die.HEIGHT)/2 + 35;
+	private Die[][] dice;
+	private Color background;
+	
+	public Board(){
+		dice = new Die[WIDTH][HEIGHT];
+		for(int i=0; i<WIDTH; i++){
+			for(int j=0; j<HEIGHT; j++){
+				dice[i][j] = new Die();
+			}
+		}
+		background = new Color(0f, .1f, .5f, 1f);
+	}
+	
+	public void draw(){
+		Boggle.batch.end();
+		
+		Boggle.shape.begin(ShapeType.Line);
+		Boggle.shape.rect(Gdx.graphics.getWidth() - 200, 100, 170, Gdx.graphics.getHeight() - 130);
+		Boggle.shape.end();
+		Boggle.shape.begin(ShapeType.Filled);
+		Boggle.shape.setColor(background);
+		Boggle.shape.rect(offSetX - 10, offSetY - 10, WIDTH*Die.WIDTH + WIDTH*(SPACE-2) + 20, HEIGHT*Die.HEIGHT + HEIGHT*(SPACE-2) + 20);
+		Boggle.shape.setColor(Color.BLACK);
+		Boggle.shape.end();
+		
+		Boggle.batch.begin();
+		
+		for(int i=0; i<WIDTH; i++){
+			for(int j=0; j<HEIGHT; j++){
+				Boggle.batch.draw(dice[i][j], offSetX + Die.WIDTH*i + SPACE*i, offSetY + Die.HEIGHT*j + SPACE*j);
+				Boggle.font45.draw(Boggle.batch, dice[i][j].getLetter().toString(),
+						offSetX + Die.WIDTH*i + SPACE*i - dice[i][j].getCharWidth()/2 + 10,
+						offSetY + Die.HEIGHT*j + SPACE*j + 33 + Die.HEIGHT/2 - dice[i][j].getCharHeight()/2);
+			}
+		}
+		
+		for(int i=0; i<Boggle.player.words.size(); i++)
+			Boggle.font25.draw(Boggle.batch, Boggle.player.words.get(i), Gdx.graphics.getWidth() - 190, Gdx.graphics.getHeight() - i*25 - 40);
+	}
+}
+
+class Die extends Texture{
+	public static final int WIDTH = 64, HEIGHT = 64;
+	private static float charWidth, charHeight;
+	private Character letter;
+	
+	public Die(){
+		super(Gdx.files.internal("data/dice3.png"));
+		letter = (char) (97 + Boggle.rand(26, 0));
+		charWidth = Boggle.font45.getBounds(letter.toString()).width;
+		charHeight = Boggle.font45.getBounds(letter.toString()).height;
+	}
+	
+	public Character getLetter(){
+		return letter;
+	}
+	
+	public float getCharWidth(){
+		return charWidth;
+	}
+	
+	public float getCharHeight(){
+		return charHeight;
+	}
+}

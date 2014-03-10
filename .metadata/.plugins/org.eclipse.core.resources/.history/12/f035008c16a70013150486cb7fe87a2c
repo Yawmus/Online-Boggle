@@ -1,0 +1,6 @@
+package com.peter.player;
+
+
+public class Player implements InputProcessor{
+
+}
